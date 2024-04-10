@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Document</title>
+    <style>
+    h2 span {
+        font-weight: 500;
+        color: brown;        
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 300px;        
+    }
+
+    label {
+        padding-top: 10px;
+    }
+
+    input {
+        padding: 5px;
+        font-size: 14px;
+        border-radius: 10px;
+        outline: none;
+        background-color: transparent;
+    }
+
+    button {
+        padding: 5px;
+        background-color: transparent;
+        border: 1px solid blue;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <h2>Случайное число: <span th:text="${number}"></span></h2>
+    <h2>Минимум: <span th:text="${min}"></span></h2>
+    <h2>Максимум: <span th:text="${max}"></span></h2>
+    <form action="/random/path" method="get">
+        <label for="min">Минимальное значение:
+        <input type="number" id="min" name="min">
+    </label>
+        <label for="max">Максимальное значение:
+        <input type="number" id="max" name="max">
+    </label>
+        <button type="submit">Сгенерировать случайное число</button>
+    </form>
+</body>
+</html>
