@@ -3,26 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/styles/cssndjs/main.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssndjs/main.css}" />
     <title>Document</title>
     <style>
-        h1, h2 {
-            font-weight: 600;
-            font-style: inherit;
-            color: red;
-        }
+      h1 {
+        font-weight: 700;
+      }
 
-        h2 {
-            font-weight: 500;
-            font-style: italic;
-        }
+      h2 {
+        font-weight: 500;
+        font-style: italic;
+      }
 
-        table {
-            table-layout: auto;
-            width: 100%;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
+      th {
+        background-color: #727272;
+        color: #333;
+        font-weight: bold;
+        padding: 8px;
+        text-align: left;
+      }
 
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
+
+      .form-container {
+        width: 300px;
+        margin: 0 auto;
+      }
+
+      .form-container h2 {
+        font-size: 24px;
+        color: #333;
+      }
+
+      .form-container input[type="text"],
+      .form-container input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .form-container button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .form-container button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
     </style>
   </head>
   <body>
@@ -41,13 +88,14 @@
         <td th:text="${user.age}"></td>
       </tr>
     </table>
-
-    <h2>Добавление пользователя</h2>
-    <form action="/users" method="post">
-        Имя <input type="text" name="firstName">
-        Фамилия <input type="text" name="lastName">
-        Возраст <input type="number" step="any" name="age">
+    <div class="form-container">
+      <h2>Добавление пользователя</h2>
+      <form action="/users" method="post">
+        Имя <input type="text" name="firstName" /> Фамилия
+        <input type="text" name="lastName" /> Возраст
+        <input type="number" step="any" name="age" />
         <button type="submit">Добавить пользователя</button>
-    </form>
+      </form>
+    </div>
   </body>
 </html>
