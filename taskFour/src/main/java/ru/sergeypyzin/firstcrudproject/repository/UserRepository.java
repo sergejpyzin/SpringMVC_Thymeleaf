@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import ru.sergeypyzin.firstcrudproject.configuration.DatabaseProperties;
 import ru.sergeypyzin.firstcrudproject.model.User;
 
 
@@ -15,9 +16,10 @@ import java.util.List;
 public class UserRepository {
 
     private final JdbcTemplate jdbc;
+    private final DatabaseProperties databaseProperties;
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM userTable";
+        String sql = databaseProperties.getFindAllUsersQuery();
 
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
@@ -31,7 +33,7 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable (firstName,lastName) VALUES ( ?, ?)";
+        String sql = databaseProperties.getSaveUserQuery();
         jdbc.update(sql, user.getFirstName(), user.getLastName());
         return user;
     }
@@ -44,7 +46,7 @@ public class UserRepository {
     public void deleteById(int id) {
 
         // SQL запрос для удаления пользователя из таблицы по идентификатору id
-        String sql = "DELETE FROM userTable WHERE id=?";
+        String sql = databaseProperties.getDeleteUserByIdQuery();
 
         // Выполнение SQL запроса с передачей идентификатора в качестве параметр
         jdbc.update(sql, id);
@@ -59,7 +61,7 @@ public class UserRepository {
     public User updateUser(User user) {
 
         // SQL запрос для обновления данных пользователя в таблице
-        String sql = "UPDATE userTable SET firstName = ?, lastName = ? WHERE id = ?";
+        String sql = databaseProperties.getUpdateUserQuery();
 
         // Выполнение SQL запроса с передачей новых данных пользователя в качестве параметров
         jdbc.update(sql, user.getFirstName(), user.getLastName(), user.getId());
@@ -76,7 +78,7 @@ public class UserRepository {
      */
     public User findByID (int id) {
         // SQL запрос для выборки пользователя по его id
-        String sql = "SELECT * FROM userTable WHERE id = ?";
+        String sql = databaseProperties.getFindUserByIdQuery();
 
         // RowMapper для отображения строк из результата запроса в объекты пользователя
         RowMapper<User> userRowMapper = (r, i) -> {
