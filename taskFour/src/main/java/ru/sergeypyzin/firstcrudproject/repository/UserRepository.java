@@ -1,6 +1,5 @@
 package ru.sergeypyzin.firstcrudproject.repository;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import ru.sergeypyzin.firstcrudproject.configuration.DatabaseProperties;
 import ru.sergeypyzin.firstcrudproject.model.User;
 
-
 import java.util.List;
 
+/**
+ * Репозиторий для управления пользователями в базе данных.
+ */
 @Repository
 @AllArgsConstructor
 public class UserRepository {
@@ -18,6 +19,11 @@ public class UserRepository {
     private final JdbcTemplate jdbc;
     private final DatabaseProperties databaseProperties;
 
+    /**
+     * Метод для получения всех пользователей из базы данных.
+     *
+     * @return список пользователей
+     */
     public List<User> findAll() {
         String sql = databaseProperties.getFindAllUsersQuery();
 
@@ -32,6 +38,12 @@ public class UserRepository {
         return jdbc.query(sql, userRowMapper);
     }
 
+    /**
+     * Метод для сохранения пользователя в базе данных.
+     *
+     * @param user объект пользователя для сохранения
+     * @return сохраненный объект пользователя
+     */
     public User save(User user) {
         String sql = databaseProperties.getSaveUserQuery();
         jdbc.update(sql, user.getFirstName(), user.getLastName());
